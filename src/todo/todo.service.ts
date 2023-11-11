@@ -15,7 +15,7 @@ export class TodoService {
     { id: 4, title: 'Todo 4', description: 'Description 4', done: false, createdAt: new Date(), updatedAt: new Date() }  
   ];
 
-  create(createTodoDto: CreateTodoDto) {
+  create(createTodoDto: CreateTodoDto): Todo {
     console.log(createTodoDto);
     const todo = new Todo();
     todo.id = this.todos.length + 1;
@@ -24,7 +24,7 @@ export class TodoService {
     todo.done = false;
     todo.createdAt = new Date();
     this.todos.push(todo);
-    return { message: 'Todo created successfully', todo };
+    return todo
   }
 
   findAll(): Todo[] {
@@ -37,7 +37,7 @@ export class TodoService {
     return todo;
   }
   
-  update(id: number, updateTodoDto: UpdateTodoDto) {
+  update(id: number, updateTodoDto: UpdateTodoDto): Todo {
     const todo = this.todos.find(todo => todo.id === id);
     if (!todo) throw new NotFoundException(`Todo with id ${id} not found`)
     const { done , description } = updateTodoDto;
@@ -49,7 +49,7 @@ export class TodoService {
       if(dbTodo.id === todo.id) return todo;
       return dbTodo;
     } )
-    return { message: 'Todo updated successfully', todo };
+    return todo;
   }
 
   remove(id: number) {

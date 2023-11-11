@@ -9,7 +9,8 @@ export class TodoController {
 
   @Post()
   create(@Body() createTodoDto: CreateTodoDto) {
-    return this.todoService.create(createTodoDto);
+    const todo = this.todoService.create(createTodoDto);
+    return { message: 'Todo created successfully', todo};
   }
 
   @Get()
@@ -28,7 +29,8 @@ export class TodoController {
   update(@Param('id', ParseIntPipe) id: number,
          @Body() updateTodoDto: UpdateTodoDto,
         ) {
-    return this.todoService.update(+id, updateTodoDto);
+    const todo = this.todoService.update(+id, updateTodoDto);
+    return { message: 'Todo updated successfully', todo}      
   }
 
   @Delete(':id')
